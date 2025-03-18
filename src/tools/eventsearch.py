@@ -1,5 +1,5 @@
 import uuid
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import List, Optional
 from urllib.parse import urlencode
 
@@ -21,21 +21,27 @@ class EventSearchTool:
                      to_date: Optional[datetime] = None,
                      query: Optional[str] = None):
 
-        from_date = from_date or datetime.now()
-        to_date = (to_date or from_date)
+        results = []
 
-        params = {
-            "start_date__gte": from_date.strftime("%Y-%m-%d"),
-            "start_date__lte": to_date.strftime("%Y-%m-%d"),
-            "category": "",
-        }
+        current_date = from_date or datetime.now()
+        to_date = min((to_date or from_date), current_date + timedelta(days=7))
 
-        # https://pypi.org/project/Crawl4AI/
-        # https://docs.crawl4ai.com/core/content-selection/
+        while current_date <= to_date:
+            params = {
+                "start_date__gte": current_date.strftime("%Y-%m-%d"),
+                "start_date__lte": current_date.strftime("%Y-%m-%d"),
+                "category": "",
+            }
 
-        url = f"https://rausgegangen.de/{city.lower()}/eventsearch/?{urlencode(params)}"
+            # https://pypi.org/project/Crawl4AI/
+            # https://docs.crawl4ai.com/core/content-selection/
 
-        results = await self.get_content(url)
+            url = f"https://rausgegangen.de/{city.lower()}/eventsearch/?{urlencode(params)}"
+
+            current_results = await self.get_content(url)
+            results.extend(current_results)
+
+            current_date += timedelta(days=1)
 
         return "".join(results)
 

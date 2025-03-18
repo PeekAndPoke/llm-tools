@@ -81,11 +81,15 @@ def main(port: int = 8000) -> None:
                            query: Optional[str] = None) -> str:
         """
         Search for upcoming events in the given city.
-        :param city: The city to search for events in
-        :param from_date: The start date of the search (default: today)
-        :param to_date: The end date of the search (default: today)
-        :param query: An additional search filter
-        :return: Found content as markdown
+
+        Args:
+            city: The city to search for events in
+            from_date: The start date of the search (default: today)
+            to_date: The end date of the search (default: today)
+            query: An additional search filter
+
+        Returns:
+            Found content as markdown
         """
         return await events_tool.search(city=city, from_date=from_date, to_date=to_date, query=query)
 

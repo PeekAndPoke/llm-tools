@@ -1,15 +1,13 @@
 import asyncio
-from pprint import pprint
 
-from src.tools.eventsearch import EventSearchTool
+from src.playgrounds.crawl4ai import test_crawl4ai_async
 
 
 async def run():
-    tool = EventSearchTool()
-
-    result = await tool.search(city="leipzig", query="anything")
-
-    pprint(result)
+    test_crawl4ai_async()
+    # tool = EventSearchTool()
+    # result = await tool.search(city="leipzig", query="anything")
+    # pprint(result)
 
 
 if __name__ == "__main__":

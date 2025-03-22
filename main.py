@@ -27,9 +27,7 @@ def main(port: int = 8000) -> None:
     """
 
     # Create an MCP server
-    mcp = FastMCP(name="Demo",
-                  # port=port,
-                  debug=True)
+    mcp = FastMCP(name="Demo", port=port)
 
     """Register all available tools with the MCP server."""
     # Create tool instances
@@ -111,9 +109,11 @@ def main(port: int = 8000) -> None:
         """Get a personalized greeting"""
         return f"Hello, {name}!"
 
-    logger.info(f"Starting MCP server on port {port} ...")
-    # mcp.run(transport="sse")
+    logger.info(f"Starting MCP server on port {mcp.settings.port} ...")
+    logger.info(f"Settings {mcp.settings}")
+
     mcp.run(transport="sse")
+
     logger.info("MCP server stopped.")
 
 
@@ -124,7 +124,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description='LLM-Tools Server - MCP protocol server providing tool access to LLMs')
 
-    parser.add_argument('--port', type=int, default=8000,
+    parser.add_argument('--port', type=int, default=8001,
                         help='Port to run the server on (default: 8001)')
 
     args = parser.parse_args()

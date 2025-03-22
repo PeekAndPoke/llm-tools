@@ -3,8 +3,6 @@ Web search tool for LLM integration using MCP protocol.
 Provides search capabilities to query the web for information.
 """
 
-from typing import Dict, Any, List
-
 from duckduckgo_search import DDGS
 
 
@@ -16,11 +14,7 @@ class DuckDuckGoTool:
     def __init__(self):
         self.ddgs = DDGS()
 
-    def web_search(
-            self,
-            query: str,
-            num_results: int = 5,
-    ) -> List[Dict[str, Any]]:
+    def web_search(self, query: str, num_results: int = 5) -> str | list[dict[str, str]]:
         """
         Perform a web search for the given query.
 
@@ -32,16 +26,16 @@ class DuckDuckGoTool:
             List of search results, each containing title, snippet, and URL
         """
 
-        result = self.ddgs.text(keywords=query,
-                                max_results=num_results)
+        try:
+            result = self.ddgs.text(keywords=query,
+                                    max_results=num_results)
 
-        return result
+            return result
 
-    def news_search(
-            self,
-            query: str,
-            num_results: int = 5,
-    ) -> List[Dict[str, Any]]:
+        except Exception as e:
+            return "Error: " + str(e)
+
+    def news_search(self, query: str, num_results: int = 5) -> str | list[dict[str, str]]:
         """
         Perform a web search for the given query.
 
@@ -53,16 +47,16 @@ class DuckDuckGoTool:
             List of search results, each containing title, snippet, and URL
         """
 
-        result = self.ddgs.news(keywords=query,
-                                max_results=num_results)
+        try:
+            result = self.ddgs.news(keywords=query,
+                                    max_results=num_results)
 
-        return result
+            return result
 
-    def image_search(
-            self,
-            query: str,
-            num_results: int = 5,
-    ) -> List[Dict[str, Any]]:
+        except Exception as e:
+            return "Error: " + str(e)
+
+    def image_search(self, query: str, num_results: int = 5) -> str | list[dict[str, str]]:
         """
         Perform an image search for the given query.
 
@@ -74,16 +68,16 @@ class DuckDuckGoTool:
             List of search results, each containing title, snippet, and URL
         """
 
-        result = self.ddgs.images(keywords=query,
-                                  max_results=num_results)
+        try:
+            result = self.ddgs.images(keywords=query,
+                                      max_results=num_results)
 
-        return result
+            return result
 
-    def video_search(
-            self,
-            query: str,
-            num_results: int = 5,
-    ) -> List[Dict[str, Any]]:
+        except Exception as e:
+            return "Error: " + str(e)
+
+    def video_search(self, query: str, num_results: int = 5) -> str | list[dict[str, str]]:
         """
         Perform a video search for the given query.
 
@@ -95,7 +89,11 @@ class DuckDuckGoTool:
             List of search results, each containing title, snippet, and URL
         """
 
-        result = self.ddgs.videos(keywords=query,
-                                  max_results=num_results)
+        try:
+            result = self.ddgs.videos(keywords=query,
+                                      max_results=num_results)
 
-        return result
+            return result
+
+        except Exception as e:
+            return "Error: " + str(e)

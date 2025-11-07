@@ -2,8 +2,7 @@
 Web search tool for LLM integration using MCP protocol.
 Provides search capabilities to query the web for information.
 """
-
-from duckduckgo_search import DDGS
+from ddgs import DDGS
 
 
 class DuckDuckGoTool:
@@ -27,7 +26,7 @@ class DuckDuckGoTool:
         """
 
         try:
-            result = self.ddgs.text(keywords=query,
+            result = self.ddgs.text(query=query,
                                     max_results=num_results)
 
             return result
@@ -48,7 +47,7 @@ class DuckDuckGoTool:
         """
 
         try:
-            result = self.ddgs.news(keywords=query,
+            result = self.ddgs.news(query=query,
                                     max_results=num_results)
 
             return result
@@ -69,7 +68,7 @@ class DuckDuckGoTool:
         """
 
         try:
-            result = self.ddgs.images(keywords=query,
+            result = self.ddgs.images(query=query,
                                       max_results=num_results)
 
             return result
@@ -90,7 +89,7 @@ class DuckDuckGoTool:
         """
 
         try:
-            result = self.ddgs.videos(keywords=query,
+            result = self.ddgs.videos(query=query,
                                       max_results=num_results)
 
             return result

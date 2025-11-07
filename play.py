@@ -1,14 +1,25 @@
 import asyncio
+from pprint import pprint
 
-from src.playgrounds.crawl4ai import test_crawl4ai_async
+from src.tools import DuckDuckGoTool
 
 
 async def run():
-    test_crawl4ai_async()
-    # tool = EventSearchTool()
-    # result = await tool.search(city="leipzig", query="anything")
-    # pprint(result)
+    tool = DuckDuckGoTool()
 
+    result = tool.web_search("Metallica")
+    pprint(result)
+
+    result = tool.news_search("Metallica")
+    pprint(result)
+
+    result = tool.image_search("Metallica")
+    pprint(result)
+
+    result = tool.video_search("Metallica")
+    pprint(result)
+
+    pass
 
 if __name__ == "__main__":
     asyncio.run(run())
